@@ -12,6 +12,9 @@ services:
       AUTOSTART_WEBSOCKETS: "1"
     ports:
       - '32400:80/tcp'
+    volumes:
+      - ../src/hito/src:/var/www/html
+      - ../src:/var/www/html/.dev
 
   adminer:
     image: adminer
