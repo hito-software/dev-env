@@ -35,6 +35,12 @@ services:
       AUTOSTART_WEBSOCKETS: "1"
       PHP_XDEBUG_START_WITH_REQUEST: "trigger"
       PHP_XDEBUG_MODE: "develop,debug"
+      PUSHER_APP_ID: "web"
+      MIX_PUSHER_APP_KEY: "34fef29b5ca4248ee43be8934f337de1"
+      PUSHER_APP_KEY: "34fef29b5ca4248ee43be8934f337de1"
+      PUSHER_APP_SECRET: "d7299cb0c0e05a9971c21750f8ca86d2"
+      PUSHER_APP_CLUSTER: ""
+      PUSHER_APP_HOST: "localhost"
 
 networks:
   hitodevenv:
