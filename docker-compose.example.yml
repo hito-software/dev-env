@@ -1,6 +1,31 @@
 version: '3.8'
 services:
+  db:
+    image: mariadb:10.7.3
+    environment:
+      MYSQL_ROOT_PASSWORD: dev123
+      MYSQL_DATABASE: hito
+    networks:
+      - hitodevenv
+
+  redis:
+    image: redis:6.2.7
+    networks:
+      - hitodevenv
+
   app:
+    image: ghcr.io/hito-software/docker:0.1.0
+    pull_policy: always
+    volumes:
+      - ../src/hito/src:/var/www/html
+      - ../src:/var/www/html/.dev
+    networks:
+      - hitodevenv
+    dns:
+      - 8.8.8.8
+      - 8.8.4.4
+    env_file:
+      - .env
     environment:
       PHP_OPCACHE_ENABLE: 0
       PHP_XDEBUG_ENABLE: 0
@@ -10,18 +35,8 @@ services:
       AUTOSTART_QUEUE: "0"
       AUTOSTART_SEED_PERMISSIONS: "0"
       AUTOSTART_WEBSOCKETS: "1"
-    ports:
-      - '32400:80/tcp'
-    volumes:
-      - ../src/hito/src:/var/www/html
-      - ../src:/var/www/html/.dev
+      PHP_XDEBUG_START_WITH_REQUEST: "trigger"
+      PHP_XDEBUG_MODE: "develop,debug"
 
-  adminer:
-    image: adminer
-    ports:
-      - '32401:8080/tcp'
-
-  mailhog:
-    image: mailhog/mailhog:latest
-    ports:
-      - '32402:8025/tcp'
+networks:
+  hitodevenv:
