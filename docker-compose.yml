@@ -10,7 +10,7 @@ services:
     image: redis:6.2.7
 
   app:
-    image: ghcr.io/hito-software/hito:develop
+    image: ghcr.io/hito-software/hito:0.1.0
     pull_policy: always
     dns:
       - 8.8.8.8
